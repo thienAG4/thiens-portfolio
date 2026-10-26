@@ -1,0 +1,39 @@
+---
+// RolePage - the whole page for one role; index.astro and [role].astro only pick the role id
+import Base from "@/layouts/Base.astro";
+import { getRoleView } from "@/lib/content";
+import About from "./About.astro";
+import Contact from "./Contact.astro";
+import Hero from "./Hero.astro";
+import Journey from "./Journey.astro";
+import ProjectCard from "./ProjectCard.astro";
+import SectionHeading from "./SectionHeading.astro";
+import Skills from "./Skills.astro";
+import Spotlight from "./Spotlight.astro";
+
+interface Props {
+  roleId: string;
+}
+const { role, profile, spotlight, others, skills, stats } = await getRoleView(Astro.props.roleId);
+---
+
+<Base title={`${profile.name} · ${role.data.title}`} description={role.data.seoDescription} profile={profile}>
+  <Hero role={role} stats={stats} spotlightTitle={spotlight.data.title} />
+  <About role={role} profile={profile} />
+
+  <section id="work" class="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+    <SectionHeading
+      eyebrow="Work"
+      title="Projects, told from the analysis side"
+      lead="Each one starts with the business problem and the process, then shows the documents that came out of it and the product built from them. Diagrams zoom: drag, pinch or open them full screen."
+    />
+    <div class="mt-14 space-y-8">
+      <Spotlight project={spotlight} />
+      {others.map((project, i) => <ProjectCard project={project} flip={i % 2 === 1} />)}
+    </div>
+  </section>
+
+  <Skills skills={skills} />
+  <Journey journey={profile.journey} />
+  <Contact profile={profile} role={role} />
+</Base>

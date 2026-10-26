@@ -1,0 +1,32 @@
+---
+// ProjectCard - one project told for the current role: story on one side, key workflow on the other
+import type { ProjectView } from "@/lib/content";
+import Diagram from "./Diagram.astro";
+import ProjectHeader from "./ProjectHeader.astro";
+import StoryDetails from "./StoryDetails.astro";
+
+interface Props {
+  project: ProjectView;
+  flip?: boolean;
+}
+const { project, flip = false } = Astro.props;
+const { workflow } = project.story;
+---
+
+<article class="glass spotlight rounded-[28px] p-5 sm:p-8" data-reveal data-spotlight>
+  <ProjectHeader project={project} />
+  <div class="mt-8 grid items-start gap-8 lg:grid-cols-2">
+    <div class:list={[flip && "lg:order-2"]}>
+      <StoryDetails project={project} />
+    </div>
+    <div class:list={["lg:sticky lg:top-28", flip && "lg:order-1"]}>
+      {
+        workflow ? (
+          <Diagram mermaid={workflow.mermaid} title={workflow.title} caption={workflow.caption} height={560} />
+        ) : (
+          project.data.cover && <Diagram image={project.data.cover} title={`${project.data.title} screen`} height={420} />
+        )
+      }
+    </div>
+  </div>
+</article>

@@ -1,0 +1,32 @@
+---
+// Journey - timeline of study, team projects, competitions and clubs, newest first
+import type { Profile } from "@/lib/content";
+import Icon from "./Icon.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  journey: Profile["journey"];
+}
+const { journey } = Astro.props;
+---
+
+<section id="journey" class="mx-auto max-w-4xl px-4 py-24 sm:px-6">
+  <SectionHeading eyebrow="Journey" title="Where the experience comes from" align="center" />
+  <ol class="relative mt-14 space-y-5 before:absolute before:top-2 before:bottom-2 before:left-[23px] before:w-px before:bg-gradient-to-b before:from-accent-400/60 before:via-white/10 before:to-transparent sm:before:left-[27px]">
+    {
+      journey.map((item, i) => (
+        <li class="relative flex gap-4 sm:gap-6" data-reveal style={`--delay:${i * 60}ms`}>
+          <span class="relative z-10 grid size-12 flex-none place-items-center rounded-2xl bg-ink-900 text-accent-300 ring-1 ring-white/10 sm:size-14">
+            <Icon name={item.icon} class="size-5" />
+          </span>
+          <div class="glass-soft flex-1 rounded-2xl px-5 py-4">
+            <p class="text-xs font-semibold tracking-wide text-accent-300">{item.period}</p>
+            <h3 class="mt-1 font-display text-base font-semibold sm:text-lg">{item.title}</h3>
+            <p class="text-xs text-text-3">{item.place}</p>
+            <p class="mt-2 text-sm leading-relaxed text-text-2">{item.detail}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>

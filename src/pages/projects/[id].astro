@@ -1,0 +1,58 @@
+---
+// Case study - full write-up of a project with a Markdown body, told from the home role's angle
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import Diagram from "@/components/Diagram.astro";
+import Icon from "@/components/Icon.astro";
+import ProjectHeader from "@/components/ProjectHeader.astro";
+import StoryDetails from "@/components/StoryDetails.astro";
+import Base from "@/layouts/Base.astro";
+import { getCaseStudies, getProfile, toView } from "@/lib/content";
+
+export const getStaticPaths = (async () => {
+  const projects = await getCaseStudies();
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const view = toView(project, "ba");
+const profile = await getProfile();
+const { Content } = await render(project);
+const workflow = view.story.workflow;
+---
+
+<Base title={`${project.data.title} · Case study · ${profile.name}`} description={view.story.problem} profile={profile}>
+  <article class="mx-auto max-w-5xl px-4 pt-32 pb-16 sm:px-6 lg:pt-40">
+    <a href="/#work" class="inline-flex items-center gap-2 text-sm text-text-3 transition hover:text-text-1" data-reveal>
+      <Icon name="arrow-left" /> All projects
+    </a>
+
+    <header class="glass ring-glow mt-6 rounded-[32px] p-6 sm:p-10" data-reveal>
+      <span class="eyebrow">Case study</span>
+      <div class="mt-6">
+        <ProjectHeader project={view} level="h2" />
+      </div>
+      <p class="mt-6 text-base leading-relaxed text-text-2">{view.story.problem}</p>
+      <div class="mt-8">
+        <StoryDetails project={{ ...view, hasCaseStudy: false }} compact />
+      </div>
+    </header>
+
+    {
+      workflow && (
+        <div class="mt-10" data-reveal>
+          <Diagram mermaid={workflow.mermaid} title={workflow.title} caption={workflow.caption} height={420} />
+        </div>
+      )
+    }
+
+    <div class="prose-case mt-6" data-reveal>
+      <Content />
+    </div>
+
+    <div class="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/8 pt-8">
+      <a href="/#work" class="btn-ghost"><Icon name="arrow-left" /> Back to all projects</a>
+      <a href="/#contact" class="btn-primary">Talk about this project <Icon name="arrow-right" /></a>
+    </div>
+  </article>
+</Base>

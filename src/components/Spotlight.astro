@@ -1,0 +1,35 @@
+---
+// Spotlight - the featured project: BA story next to the live app, key workflow underneath
+import type { ProjectView } from "@/lib/content";
+import Diagram from "./Diagram.astro";
+import LiveDemo from "./LiveDemo.astro";
+import ProjectHeader from "./ProjectHeader.astro";
+import StoryDetails from "./StoryDetails.astro";
+
+interface Props {
+  project: ProjectView;
+}
+const { project } = Astro.props;
+const workflow = project.story.workflow;
+---
+
+<article class="glass ring-glow spotlight rounded-[32px] p-5 sm:p-8 lg:p-10" data-reveal data-spotlight>
+  <div class="mb-6 flex items-center gap-2">
+    <span class="eyebrow">Featured project</span>
+  </div>
+  <ProjectHeader project={project} level="h3" />
+  <p class="mt-6 max-w-3xl text-[15px] leading-relaxed text-text-2">{project.story.problem}</p>
+
+  <div class="mt-8 grid gap-10 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+    <StoryDetails project={project} compact />
+    <LiveDemo project={project} />
+  </div>
+
+  {
+    workflow && (
+      <div class="mt-10">
+        <Diagram mermaid={workflow.mermaid} title={workflow.title} caption={workflow.caption} height={440} />
+      </div>
+    )
+  }
+</article>

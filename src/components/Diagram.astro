@@ -1,0 +1,8 @@
+---
+// Diagram - zoomable frame for a Mermaid source or an exported image (same markup as Markdown diagrams)
+import { diagramMarkup, type DiagramInput } from "@/lib/diagram-markup";
+
+type Props = DiagramInput;
+---
+
+<Fragment set:html={diagramMarkup(Astro.props)} />

@@ -1,0 +1,63 @@
+---
+// About - monogram with orbiting skill chips, short story and key facts
+import type { Profile, Role } from "@/lib/content";
+import Icon from "./Icon.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  role: Role;
+  profile: Profile;
+}
+const { role, profile } = Astro.props;
+const orbit = role.data.orbit;
+---
+
+<section id="about" class="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+  <div class="grid items-center gap-16 lg:grid-cols-[1fr_1.1fr]">
+    <div class="relative mx-auto aspect-square w-full max-w-[420px]" data-reveal aria-hidden="true">
+      <div class="absolute inset-[14%] rounded-full border border-dashed border-white/10"></div>
+      <div class="absolute inset-[30%] rounded-full border border-white/5"></div>
+      <div class="absolute inset-[33%] grid place-items-center rounded-full glass">
+        <span class="font-display text-5xl font-extrabold text-gradient sm:text-6xl">{profile.initials}</span>
+      </div>
+      <div class="orbit absolute inset-0">
+        {
+          orbit.map((label, i) => {
+            const angle = (i / orbit.length) * Math.PI * 2 - Math.PI / 2;
+            const x = 50 + Math.cos(angle) * 42;
+            const y = 50 + Math.sin(angle) * 42;
+            return (
+              <span class="absolute -translate-x-1/2 -translate-y-1/2" style={`left:${x}%;top:${y}%`}>
+                <span class="orbit-item glass-soft block rounded-full px-3 py-1.5 text-[11px] font-medium whitespace-nowrap text-text-2 sm:text-xs">
+                  {label}
+                </span>
+              </span>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <div>
+      <SectionHeading eyebrow="About me" title={`Hi, I'm ${profile.shortName}.`} />
+      <div class="mt-6 space-y-4 text-base leading-relaxed text-text-2" data-reveal style="--delay:120ms">
+        {role.data.about.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <ul class="mt-8 grid gap-3 sm:grid-cols-2" data-reveal style="--delay:220ms">
+        {
+          profile.facts.map((fact) => (
+            <li class="glass-soft flex items-start gap-3 rounded-2xl px-4 py-3">
+              <span class="mt-0.5 grid size-8 flex-none place-items-center rounded-lg bg-accent-500/12 text-accent-300">
+                <Icon name={fact.icon} />
+              </span>
+              <span>
+                <span class="block text-xs text-text-3">{fact.label}</span>
+                <span class="block text-sm font-medium text-text-1">{fact.value}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

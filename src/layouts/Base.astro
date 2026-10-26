@@ -1,0 +1,66 @@
+---
+// Base layout - document head, animated backdrop, grain overlay, nav, footer and page scripts
+import "@/styles/global.css";
+import Footer from "@/components/Footer.astro";
+import Nav from "@/components/Nav.astro";
+import type { Profile } from "@/lib/content";
+
+interface Props {
+  title: string;
+  description: string;
+  profile: Profile;
+  /** Section links in the nav; case studies link back to the home page sections. */
+  navBase?: string;
+}
+
+const { title, description, profile, navBase = "" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL("/og.png", Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.name} />
+    <meta name="theme-color" content="#091315" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <div class="backdrop" aria-hidden="true">
+      <div class="backdrop-grid"></div>
+      <div class="glow glow-a"></div>
+      <div class="glow glow-b"></div>
+      <div class="glow glow-c"></div>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] focus:rounded-full focus:bg-accent-500 focus:px-4 focus:py-2">
+      Skip to content
+    </a>
+    <Nav profile={profile} base={navBase} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer profile={profile} base={navBase} />
+
+    <dialog class="diagram-dialog" id="diagram-dialog" aria-label="Diagram, full screen"></dialog>
+
+    <script>
+      import "@/scripts/motion";
+      import "@/scripts/diagrams";
+      import "@/scripts/live-demo";
+    </script>
+  </body>
+</html>

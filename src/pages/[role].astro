@@ -1,0 +1,17 @@
+---
+// Role pages - every role in roles.yaml other than the home page gets /<path>
+import type { GetStaticPaths } from "astro";
+import RolePage from "@/components/RolePage.astro";
+import { getRoles } from "@/lib/content";
+
+export const getStaticPaths = (async () => {
+  const roles = await getRoles();
+  return roles
+    .filter((role) => role.data.path !== "/")
+    .map((role) => ({ params: { role: role.data.path.slice(1) }, props: { roleId: role.id } }));
+}) satisfies GetStaticPaths;
+
+const { roleId } = Astro.props;
+---
+
+<RolePage roleId={roleId} />

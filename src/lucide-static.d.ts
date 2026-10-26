@@ -1,0 +1,45 @@
+// lucide-static ships no types: each icon is an SVG string, declared here as it is used
+declare module "lucide-static" {
+  export const ArrowDown: string;
+  export const ArrowLeft: string;
+  export const ArrowLeftRight: string;
+  export const ArrowRight: string;
+  export const ArrowUpRight: string;
+  export const Award: string;
+  export const Bot: string;
+  export const Boxes: string;
+  export const ChartColumn: string;
+  export const Check: string;
+  export const ClipboardList: string;
+  export const Clock: string;
+  export const Code: string;
+  export const Copy: string;
+  export const Database: string;
+  export const FileText: string;
+  export const GitBranch: string;
+  export const GraduationCap: string;
+  export const Image: string;
+  export const Layers: string;
+  export const LayoutDashboard: string;
+  export const Lightbulb: string;
+  export const ListChecks: string;
+  export const Mail: string;
+  export const MapPin: string;
+  export const Maximize2: string;
+  export const Menu: string;
+  export const Monitor: string;
+  export const Network: string;
+  export const Play: string;
+  export const Route: string;
+  export const Scan: string;
+  export const ShieldCheck: string;
+  export const Smartphone: string;
+  export const Sparkles: string;
+  export const Table: string;
+  export const Target: string;
+  export const Users: string;
+  export const Workflow: string;
+  export const X: string;
+  export const ZoomIn: string;
+  export const ZoomOut: string;
+}

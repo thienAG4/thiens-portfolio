@@ -1,0 +1,41 @@
+---
+// Contact - call to action with e-mail (copy button), GitHub and the local time in Vietnam
+import type { Profile, Role } from "@/lib/content";
+import Icon from "./Icon.astro";
+
+interface Props {
+  profile: Profile;
+  role: Role;
+}
+const { profile, role } = Astro.props;
+---
+
+<section id="contact" class="mx-auto max-w-5xl px-4 py-24 sm:px-6">
+  <div class="glass ring-glow relative overflow-hidden rounded-[32px] px-6 py-14 text-center sm:px-12 sm:py-20" data-reveal>
+    <div class="pointer-events-none absolute -top-24 left-1/2 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-accent-500/25 blur-[90px]" aria-hidden="true"></div>
+    <p class="glass-soft relative inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-text-2">
+      <span class="pulse-dot size-2 rounded-full bg-mint-400"></span>
+      {role.data.availability}
+    </p>
+    <h2 class="relative mx-auto mt-6 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-5xl sm:leading-[1.1]">
+      Need someone who can draw the process <span class="text-gradient">and check the build?</span>
+    </h2>
+    <p class="relative mx-auto mt-5 max-w-xl text-base leading-relaxed text-text-2">
+      I'm happy to walk you through any of these projects, from the first survey question to the last test.
+    </p>
+    <div class="relative mt-9 flex flex-wrap items-center justify-center gap-3">
+      <a href={`mailto:${profile.email}`} class="btn-primary !px-6 !py-3"><Icon name="mail" /> Email me</a>
+      <button type="button" class="btn-ghost !py-3 font-mono !text-xs" data-copy={profile.email} aria-live="polite">
+        <Icon name="copy" class="size-4" />
+        <span data-copy-label>{profile.email}</span>
+      </button>
+      <a href={profile.github} target="_blank" rel="noopener" class="btn-ghost !py-3"><Icon name="github" /> GitHub</a>
+    </div>
+    <p class="relative mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-text-3">
+      <span class="inline-flex items-center gap-1.5"><Icon name="map" /> {profile.location}</span>
+      <span class="inline-flex items-center gap-1.5">
+        <Icon name="clock" /> Local time <strong class="font-semibold text-text-2 tabular-nums" data-local-time={profile.timezone}>--:--</strong>
+      </span>
+    </p>
+  </div>
+</section>

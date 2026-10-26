@@ -1,0 +1,12 @@
+---
+// Icon - inline lucide icon by name (see lib/icons.ts)
+import { iconSvg, type IconName } from "@/lib/icons";
+
+interface Props {
+  name: IconName | string;
+  class?: string;
+}
+const { name, class: className = "" } = Astro.props;
+---
+
+<Fragment set:html={iconSvg(name as IconName, `icon ${className}`.trim())} />

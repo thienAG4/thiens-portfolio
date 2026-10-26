@@ -1,0 +1,77 @@
+---
+// Nav - floating glass pill; highlights the section in view and folds into a menu on phones
+import type { Profile } from "@/lib/content";
+import Icon from "./Icon.astro";
+
+interface Props {
+  profile: Profile;
+  base: string;
+}
+const { profile, base } = Astro.props;
+const links = [
+  { id: "about", label: "About" },
+  { id: "work", label: "Work" },
+  { id: "skills", label: "Skills" },
+  { id: "journey", label: "Journey" },
+  { id: "contact", label: "Contact" },
+];
+---
+
+<header class="fixed inset-x-0 top-4 z-50 px-4" data-nav>
+  <nav
+    class="glass mx-auto flex max-w-5xl items-center justify-between gap-3 rounded-full py-2 pr-2 pl-3 transition-all duration-500 data-[scrolled]:max-w-4xl"
+    aria-label="Main"
+  >
+    <a href={`${base}/#home`} class="flex items-center gap-2.5" aria-label={`${profile.name}, home`}>
+      <span class="grid size-9 place-items-center rounded-full bg-accent-500/15 font-display text-sm font-bold text-accent-300 ring-1 ring-accent-400/30">
+        {profile.initials}
+      </span>
+      <span class="hidden font-display text-sm font-semibold sm:block">{profile.name}</span>
+    </a>
+
+    <ul class="hidden items-center gap-1 md:flex">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={`${base}/#${link.id}`}
+              data-nav-link={link.id}
+              class="rounded-full px-3.5 py-2 text-sm text-text-2 transition hover:text-text-1 data-[active]:bg-white/8 data-[active]:text-text-1"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <a href={`mailto:${profile.email}`} class="btn-primary hidden !px-4 !py-2 sm:inline-flex">
+        <Icon name="mail" /> Email me
+      </a>
+      <button
+        type="button"
+        class="grid size-10 place-items-center rounded-full text-text-1 hover:bg-white/8 md:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-button
+      >
+        <Icon name="menu" class="size-5" />
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="glass mx-auto mt-2 hidden max-w-5xl rounded-3xl p-2 md:hidden" data-menu>
+    {
+      links.map((link) => (
+        <a href={`${base}/#${link.id}`} class="block rounded-2xl px-4 py-3 text-text-1 hover:bg-white/6" data-menu-link>
+          {link.label}
+        </a>
+      ))
+    }
+    <a href={`mailto:${profile.email}`} class="mt-1 block rounded-2xl bg-accent-500/15 px-4 py-3 font-semibold text-accent-200">
+      Email me
+    </a>
+  </div>
+</header>

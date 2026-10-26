@@ -1,0 +1,37 @@
+---
+// ProjectHeader - category, title, tagline and status line of a project card
+import type { ProjectView } from "@/lib/content";
+import Icon from "./Icon.astro";
+
+interface Props {
+  project: ProjectView;
+  level?: "h2" | "h3";
+}
+const { project, level = "h3" } = Astro.props;
+const { data, story } = project;
+const Heading = level;
+const status = {
+  live: { label: "Live", tone: "bg-mint-400/12 text-mint-400 ring-mint-400/30" },
+  completed: { label: "Completed", tone: "bg-white/6 text-text-2 ring-white/12" },
+  "in-progress": { label: "In progress", tone: "bg-amber-300/10 text-amber-200 ring-amber-300/25" },
+}[data.status];
+---
+
+<div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+  <div class="min-w-0">
+    <p class="text-xs font-semibold tracking-[0.16em] text-accent-300 uppercase">{story.category}</p>
+    <Heading class="mt-2 font-display text-2xl font-bold tracking-tight sm:text-3xl">{data.title}</Heading>
+    <p class="mt-1.5 text-[15px] text-text-2">{story.tagline}</p>
+  </div>
+  <div class="flex flex-none flex-col items-start gap-2 md:items-end">
+    <span class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${status.tone}`}>
+      {data.status === "live" && <span class="pulse-dot size-1.5 rounded-full bg-current" />}
+      {status.label}
+    </span>
+    <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-3">
+      <span class="inline-flex items-center gap-1"><Icon name="clock" />{data.period}</span>
+      {data.team && <span class="inline-flex items-center gap-1"><Icon name="users" />Team of {data.team}</span>}
+    </p>
+    <p class="text-xs text-text-3 md:max-w-56 md:text-right">{data.context}</p>
+  </div>
+</div>

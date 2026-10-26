@@ -1,0 +1,58 @@
+# Roles - one page per role over the shared project pool (decision D3).
+# `featured` decides which projects show and in what order; `spotlight` gets the live demo.
+# Add a role (e.g. dev at /dev) here and give projects an `angles.dev` block; no code changes.
+
+ba:
+  path: /
+  title: IT Business Analyst
+  seoDescription: >-
+    Nguyen Duc Thien, Information Systems student at UEL (VNU-HCM) looking for IT Business Analyst roles.
+    Process models, specifications and live products built from them.
+  availability: Open to Business Analyst roles
+  headline:
+    - From business pain points
+    - to systems that actually run.
+  intro: >-
+    Hi, I'm Thien, an Information Systems student at UEL. I map how work really happens,
+    write the requirements down, and then prove them with products you can click through.
+  about:
+    - >-
+      I study Information Systems at the University of Economics and Law (VNU-HCM). The part of a
+      project I enjoy most is the start: a vague complaint like "drivers call us too late" becomes a
+      process model, a set of business rules, and finally a requirement a system can enforce.
+    - >-
+      I have led the analysis on two team projects, writing the BR/FR/NFR lists, BPMN processes, use case
+      specifications and data models, and then checking the built system against them. Because I can also
+      read and write code, I turned one of those specs into a deployed product to see where my requirements
+      held up and where they did not.
+  orbit:
+    - BPMN 2.0
+    - Use cases
+    - FR / NFR specs
+    - ERD
+    - DFD
+    - SQL
+    - Figma
+    - Traceability
+  spotlight: h4t-xpress
+  featured:
+    - h4t-xpress
+    - greendrop
+    - opc-multi-agents
+    - atelier-ai
+  stats:
+    - key: fr
+      label: Functional requirements written
+    - key: uc
+      label: Use cases specified
+    - key: bpmn
+      label: BPMN processes modelled
+    - key: live
+      label: Product live online
+  skillGroups:
+    - analysis
+    - modelling
+    - data
+    - delivery
+    - tech
+    - ai
