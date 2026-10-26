@@ -1,0 +1,4 @@
+# Built on Vercel from source; never upload local build output
+dist/
+.astro/
+node_modules/
