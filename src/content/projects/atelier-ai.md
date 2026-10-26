@@ -9,15 +9,16 @@ links:
     href: https://github.com/thienAG4/Graduation_Thesis
 default:
   category: Retail · AI recommendation
-  tagline: An AI fashion stylist that builds outfits from real Shopee products
-  problem: >-
-    Shoppers know the occasion and the look they want, but not which items suit their body and budget.
-    Marketplace search returns single products, not outfits, and gives no reason why an item fits.
-  role: Graduation project. Defined the stylist flow and the data pipeline and built the prototype.
+  tagline: "AI stylist that builds outfits from real Shopee products"
+  problem: "Marketplaces return single items, not outfits that fit a body, an occasion and a budget."
+  role: "Graduation project, prototype"
   highlights:
-    - Advice comes in two stages, a styling plan drawn from 125 styling rules and then real tops, bottoms and accessories that match it.
-    - New products go through a staging preview and de-duplication before they reach the catalogue.
-    - Every outfit has a match score and the stylist's reasoning, so the shopper sees why each item was chosen.
+    - label: "2-stage advice"
+      text: "styling plan first, then matching products"
+    - label: "Clean catalogue"
+      text: "staging preview and de-duplication"
+    - label: "Explainable"
+      text: "match score and stylist reasoning per outfit"
   metrics:
     - key: rules
       value: 125

@@ -40,6 +40,8 @@ const ogImage = new URL("/og.png", Astro.site);
   <body>
     <div class="backdrop" aria-hidden="true">
       <div class="backdrop-grid"></div>
+      <div class="backdrop-grid-hot"></div>
+      <div class="cursor-glow"></div>
       <div class="glow glow-a"></div>
       <div class="glow glow-b"></div>
       <div class="glow glow-c"></div>
@@ -59,6 +61,8 @@ const ogImage = new URL("/og.png", Astro.site);
 
     <script>
       import "@/scripts/motion";
+      import "@/scripts/cursor";
+      import "@/scripts/constellation";
       import "@/scripts/diagrams";
       import "@/scripts/live-demo";
     </script>

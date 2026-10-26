@@ -1,6 +1,7 @@
 # Roles - one page per role over the shared project pool (decision D3).
 # `featured` decides which projects show and in what order; `spotlight` gets the live demo.
 # Add a role (e.g. dev at /dev) here and give projects an `angles.dev` block; no code changes.
+# Text fields have length limits in content.config.ts so the page stays easy to scan.
 
 ba:
   path: /
@@ -12,19 +13,36 @@ ba:
   headline:
     - From business pain points
     - to systems that actually run.
-  intro: >-
-    Hi, I'm Thien, an Information Systems student at UEL. I map how work really happens,
-    write the requirements down, and then prove them with products you can click through.
-  about:
-    - >-
-      I study Information Systems at the University of Economics and Law (VNU-HCM). The part of a
-      project I enjoy most is the start: a vague complaint like "drivers call us too late" becomes a
-      process model, a set of business rules, and finally a requirement a system can enforce.
-    - >-
-      I have led the analysis on two team projects, writing the BR/FR/NFR lists, BPMN processes, use case
-      specifications and data models, and then checking the built system against them. Because I can also
-      read and write code, I turned one of those specs into a deployed product to see where my requirements
-      held up and where they did not.
+  intro: I analyse the process, write the spec, and prove it with a product you can click.
+  summary: >-
+    Information Systems student at UEL. I like the moment a vague complaint becomes a process model,
+    a business rule, and finally a requirement a system can enforce.
+  pillars:
+    - icon: workflow
+      title: Process first
+      text: Survey the users, model as-is and to-be in BPMN
+    - icon: clipboard
+      title: Specs that hold
+      text: BR, FR, NFR and use cases a team can build from
+    - icon: route
+      title: Proof it works
+      text: Traced to screens and tests, shipped as a live product
+  process:
+    - icon: users
+      title: Listen
+      text: Survey the users
+    - icon: workflow
+      title: Model
+      text: BPMN as-is, to-be
+    - icon: clipboard
+      title: Specify
+      text: BR, FR, NFR, use cases
+    - icon: table
+      title: Trace
+      text: Requirement to test
+    - icon: route
+      title: Ship
+      text: A live product
   orbit:
     - BPMN 2.0
     - Use cases
@@ -42,13 +60,13 @@ ba:
     - atelier-ai
   stats:
     - key: fr
-      label: Functional requirements written
+      label: Functional requirements
     - key: uc
       label: Use cases specified
     - key: bpmn
-      label: BPMN processes modelled
+      label: BPMN processes
     - key: live
-      label: Product live online
+      label: Live product
   skillGroups:
     - analysis
     - modelling

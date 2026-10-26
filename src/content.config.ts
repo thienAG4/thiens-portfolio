@@ -25,13 +25,16 @@ const workflow = z.object({
   mermaid: z.string(),
 });
 
+/** A bold keyword and a few words after it. Length limits keep the cards scannable. */
+const highlight = z.object({ label: z.string().max(24), text: z.string().max(64) });
+
 /** How a project is told. `default` is complete; an angle overrides any of it for one role. */
 const story = z.object({
   category: z.string(),
-  tagline: z.string(),
-  problem: z.string(),
-  role: z.string(),
-  highlights: z.array(z.string()).default([]),
+  tagline: z.string().max(80),
+  problem: z.string().max(130),
+  role: z.string().max(60),
+  highlights: z.array(highlight).max(4).default([]),
   workflow: workflow.optional(),
   metrics: z.array(metric).default([]),
   artifacts: z.array(artifact).default([]),
@@ -56,6 +59,8 @@ const projects = defineCollection({
     status: z.enum(["live", "completed", "in-progress"]),
     stack: z.array(z.string()),
     cover: z.string().optional(),
+    /** Screenshots for the "Screens" tab of a project card; each opens in the zoom viewer. */
+    screens: z.array(z.object({ src: z.string(), title: z.string() })).max(6).default([]),
     links: z.array(link).default([]),
     /** Live app embedded in an iframe, one tab per demo role (needs /demo/:role in the app). */
     liveDemo: z
@@ -79,8 +84,10 @@ const roles = defineCollection({
     seoDescription: z.string(),
     availability: z.string(),
     headline: z.tuple([z.string(), z.string()]),
-    intro: z.string(),
-    about: z.array(z.string()).min(1),
+    intro: z.string().max(110),
+    summary: z.string().max(170),
+    pillars: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string().max(60) })).length(3),
+    process: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string().max(32) })).min(3).max(6),
     orbit: z.array(z.string()).min(4).max(10),
     spotlight: z.string(),
     featured: z.array(z.string()).min(1),
@@ -107,7 +114,6 @@ const profile = defineCollection({
         id: z.string(),
         title: z.string(),
         icon: z.string(),
-        blurb: z.string(),
         items: z.array(z.string()).min(1),
       }),
     ),
@@ -117,7 +123,7 @@ const profile = defineCollection({
         title: z.string(),
         place: z.string(),
         icon: z.string(),
-        detail: z.string(),
+        detail: z.string().max(110),
       }),
     ),
   }),

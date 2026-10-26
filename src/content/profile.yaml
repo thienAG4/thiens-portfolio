@@ -13,13 +13,10 @@ thien:
   facts:
     - icon: graduation
       label: Studying
-      value: Information Systems, UEL (VNU-HCM)
+      value: Information Systems, UEL
     - icon: users
-      label: Led analysis on
-      value: 2 team projects of 5 people
-    - icon: route
-      label: Shipped
-      value: 1 product live, built from my own spec
+      label: Led
+      value: 2 BA teams of 5
     - icon: map
       label: Based in
       value: Vietnam (UTC+7)
@@ -28,63 +25,60 @@ thien:
     - id: analysis
       title: Business analysis
       icon: clipboard
-      blurb: Turning what people say into requirements a team can build and test.
       items:
-        - Business requirements (BR)
-        - Functional and non-functional requirements
-        - Use case specifications
-        - Business rules and exception flows
-        - Requirement traceability
-        - Manual end-to-end testing
+        - Business requirements
+        - FR / NFR
+        - Use case specs
+        - Business rules
+        - Traceability
+        - E2E testing
     - id: modelling
-      title: Process and system modelling
+      title: Modelling
       icon: workflow
-      blurb: Drawing the as-is and the to-be so everyone argues about the same picture.
       items:
         - BPMN 2.0
-        - DFD (context, level 0)
+        - DFD
         - Use case diagrams
-        - Activity and sequence diagrams
+        - Activity / sequence
         - State machines
-        - ERD (conceptual, logical)
+        - ERD
     - id: data
       title: Data
       icon: database
-      blurb: Enough SQL and modelling to check a report or a migration myself.
       items:
-        - SQL (PostgreSQL, MySQL)
+        - SQL
+        - PostgreSQL
+        - MySQL
         - Data modelling
-        - Reporting dashboards
+        - Dashboards
         - MongoDB
-        - DuckDB / MotherDuck
     - id: delivery
       title: Design and delivery
       icon: layers
-      blurb: The tools that sit between a requirement and a release.
       items:
-        - Figma wireframes and prototypes
-        - Postman API testing
-        - Git and GitHub
-        - Architecture decision records
-        - Markdown documentation
+        - Figma
+        - Postman
+        - Git / GitHub
+        - ADRs
+        - Markdown docs
     - id: tech
       title: Technical literacy
       icon: code
-      blurb: I can read the code behind a feature and talk to developers in their terms.
       items:
         - Python
         - FastAPI
-        - React and TypeScript
+        - React
+        - TypeScript
         - REST APIs
         - Docker
     - id: ai
       title: AI and automation
       icon: sparkles
-      blurb: Where AI fits in a business process, and where it should hand back to a person.
       items:
-        - LLM multi-agent workflows
-        - RAG with vector search
-        - LangChain and LangGraph
+        - LLM agents
+        - RAG
+        - Vector search
+        - LangGraph
         - Prompt design
 
   journey:
@@ -92,40 +86,34 @@ thien:
       title: Shipped H4T Xpress live
       place: Personal project
       icon: route
-      detail: >-
-        Turned my group's analysis into a deployed web app (FastAPI, React, PostgreSQL, Docker) with four roles,
-        realtime incident handling and a traceability matrix from requirement to test.
+      detail: Turned my group's spec into a deployed app with 4 roles and realtime incidents.
     - period: Aug 2026 - now
       title: Graduation project, ATELIER AI
-      place: University of Economics and Law
+      place: UEL
       icon: sparkles
-      detail: AI fashion stylist that plans outfits with RAG over a style knowledge base and real Shopee products.
+      detail: AI stylist that builds outfits from real Shopee products with RAG.
     - period: Jul 2026
       title: MIS Talent 2026
       place: Competition, team of 3
       icon: award
-      detail: >-
-        Multi-agent decision support that screens a business opportunity for an OPC founder: finance, risk and
-        compliance, then a decision card the founder approves.
+      detail: Multi-agent decision support for an OPC founder, with a human in the loop.
     - period: Apr - Jul 2026
-      title: Business Analysis Lead, GreenDrop
-      place: Business Web Development course, team of 5
+      title: BA Lead, GreenDrop
+      place: Business Web Development, team of 5
       icon: clipboard
-      detail: >-
-        Wrote 16 business, 32 functional and 13 non-functional requirements, 7 BPMN processes and 7 use case
-        specifications, then tested the built system end to end against them.
+      detail: 16 BR, 32 FR, 13 NFR, 7 BPMN, 7 use case specs, then end-to-end testing.
     - period: "2026"
       title: Group leader, H4T Xpress analysis
-      place: Information Systems Analysis and Design course, team of 5
+      place: Systems Analysis and Design, team of 5
       icon: users
-      detail: Survey, BPMN, DFD, use cases, activity and sequence diagrams, ERD and Figma screens for a last-mile delivery company.
+      detail: Survey, BPMN, DFD, use cases, sequence diagrams, ERD and Figma screens.
     - period: Oct 2025 - now
       title: Member, AI4I Club
       place: UEL student club
       icon: bot
-      detail: Contributor to the club's student-support chatbot (FastAPI, RAG, LangGraph, React).
+      detail: Contributor to the club's student-support chatbot (FastAPI, RAG, LangGraph).
     - period: 2023 - now
       title: B.Sc. Information Systems
       place: University of Economics and Law, VNU-HCM
       icon: graduation
-      detail: Coursework in systems analysis and design, databases, business web development and machine learning.
+      detail: Systems analysis and design, databases, web development, machine learning.

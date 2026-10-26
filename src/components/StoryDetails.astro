@@ -1,11 +1,12 @@
 ---
-// StoryDetails - the BA side of a project: problem, role, highlights, numbers, artifacts and links
+// StoryDetails - the BA side of a project, built to be scanned: problem in one line, role chip,
+// keyword bullets, big numbers, artifact chips and links
 import { ARTIFACT_ICONS, type ProjectView } from "@/lib/content";
 import Icon from "./Icon.astro";
 
 interface Props {
   project: ProjectView;
-  /** Hide the problem paragraph when the card already shows it elsewhere. */
+  /** Hide the problem line when the card already shows it above. */
   compact?: boolean;
 }
 const { project, compact = false } = Astro.props;
@@ -16,25 +17,27 @@ const metricCols = story.metrics.length >= 4 ? "grid-cols-2 sm:grid-cols-4" : "g
 <div class="space-y-6">
   {
     !compact && (
-      <div>
-        <p class="text-xs font-semibold tracking-widest text-text-3 uppercase">The problem</p>
-        <p class="mt-2 text-[15px] leading-relaxed text-text-2">{story.problem}</p>
-      </div>
+      <p class="flex gap-3 rounded-2xl border border-white/8 bg-white/[0.025] px-4 py-3 text-sm leading-relaxed text-text-2">
+        <Icon name="target" class="mt-0.5 size-4 text-rose-300" />
+        <span><span class="font-semibold text-text-1">Problem · </span>{story.problem}</span>
+      </p>
     )
   }
 
-  <div class="flex items-start gap-3 rounded-2xl border border-accent-400/20 bg-accent-500/[0.07] px-4 py-3">
-    <Icon name="target" class="mt-0.5 size-[18px] text-accent-300" />
-    <p class="text-sm leading-relaxed text-text-1"><span class="text-text-3">My role · </span>{story.role}</p>
-  </div>
+  <p class="inline-flex items-center gap-2 rounded-full bg-accent-500/12 px-3 py-1 text-xs font-semibold text-accent-200 ring-1 ring-accent-400/30">
+    <Icon name="users" /> {story.role}
+  </p>
 
   {
     story.highlights.length > 0 && (
-      <ul class="space-y-2.5">
+      <ul class="grid gap-2 sm:grid-cols-2">
         {story.highlights.map((item) => (
-          <li class="flex gap-3 text-sm leading-relaxed text-text-2">
-            <Icon name="check" class="mt-1 size-4 text-mint-400" />
-            <span>{item}</span>
+          <li class="flex items-start gap-2.5 rounded-xl bg-white/[0.03] px-3 py-2.5 ring-1 ring-white/[0.06]">
+            <Icon name="check" class="mt-0.5 size-4 text-mint-400" />
+            <span class="text-[13px] leading-snug text-text-3">
+              <span class="block font-semibold text-text-1">{item.label}</span>
+              {item.text}
+            </span>
           </li>
         ))}
       </ul>
@@ -43,44 +46,41 @@ const metricCols = story.metrics.length >= 4 ? "grid-cols-2 sm:grid-cols-4" : "g
 
   {
     story.metrics.length > 0 && (
-      <dl class={`grid gap-2.5 ${metricCols}`}>
+      <ul class={`grid gap-2.5 ${metricCols}`}>
         {story.metrics.map((metric) => (
-          <div class="rounded-2xl bg-white/[0.035] px-3.5 py-3 ring-1 ring-white/[0.06]">
-            <dt class="text-[11px] leading-tight text-text-3">{metric.label}</dt>
-            <dd class="mt-1 font-display text-2xl font-bold text-text-1 tabular-nums" data-count={metric.value}>
+          <li class="rounded-2xl bg-white/[0.035] px-3.5 py-3 ring-1 ring-white/[0.06]">
+            <span class="block font-display text-[1.7rem] leading-none font-bold text-text-1 tabular-nums" data-count={metric.value}>
               {metric.value}
-            </dd>
-          </div>
+            </span>
+            <span class="mt-1.5 block text-[11px] leading-tight text-text-3">{metric.label}</span>
+          </li>
         ))}
-      </dl>
+      </ul>
     )
   }
 
   {
     story.artifacts.length > 0 && (
-      <div>
-        <p class="text-xs font-semibold tracking-widest text-text-3 uppercase">BA artifacts</p>
-        <div class="mt-3 flex flex-wrap gap-2">
-          {story.artifacts.map((artifact) => (
-            <a class="chip" href={artifact.href} target="_blank" rel="noopener">
-              <Icon name={ARTIFACT_ICONS[artifact.kind]} class="text-accent-400" />
-              {artifact.label}
-            </a>
-          ))}
-        </div>
+      <div class="flex flex-wrap gap-2">
+        {story.artifacts.map((artifact) => (
+          <a class="chip" href={artifact.href} target="_blank" rel="noopener">
+            <Icon name={ARTIFACT_ICONS[artifact.kind]} class="text-accent-400" />
+            {artifact.label}
+          </a>
+        ))}
       </div>
     )
   }
 
-  <div class="flex flex-wrap gap-1.5">
+  <p class="flex flex-wrap gap-1.5" aria-label="Tech stack">
     {data.stack.map((tech) => <span class="rounded-md bg-white/[0.04] px-2 py-0.5 font-mono text-[11px] text-text-3">{tech}</span>)}
-  </div>
+  </p>
 
-  <div class="flex flex-wrap gap-2.5 pt-1">
+  <div class="flex flex-wrap gap-2.5">
     {
       project.hasCaseStudy && (
         <a href={`/projects/${project.id}/`} class="btn-primary">
-          Read the case study <Icon name="arrow-right" />
+          Case study <Icon name="arrow-right" />
         </a>
       )
     }

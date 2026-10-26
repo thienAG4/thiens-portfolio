@@ -1,90 +1,52 @@
 ---
-// Hero - availability, two-line headline revealed word by word, intro, CTAs, the "how I work"
-// pipeline card and numbers added up from the featured projects
-import type { Role, Stat } from "@/lib/content";
+// Hero - kept light on purpose: availability, two-line headline, one line of intro and two buttons
+// over an interactive constellation (scripts/constellation.ts) that reacts to the cursor
+import type { Role } from "@/lib/content";
 import Icon from "./Icon.astro";
 
 interface Props {
   role: Role;
-  stats: Stat[];
   spotlightTitle: string;
 }
-const { role, stats, spotlightTitle } = Astro.props;
+const { role, spotlightTitle } = Astro.props;
 const [lineOne, lineTwo] = role.data.headline;
 const firstLine = lineOne.split(" ").map((word, i) => ({ word, delay: 120 + i * 70 }));
 // The gradient line rises as one piece: background-clip text breaks on separately animated words.
 const secondLineDelay = 120 + firstLine.length * 70;
-
-const steps = [
-  { icon: "users", title: "Listen", text: "Survey the people doing the work" },
-  { icon: "workflow", title: "Model", text: "BPMN as-is and to-be" },
-  { icon: "clipboard", title: "Specify", text: "BR, FR, NFR and use cases" },
-  { icon: "table", title: "Trace", text: "Requirement to screen to test" },
-  { icon: "route", title: "Ship", text: "A product people can click" },
-];
 ---
 
-<section id="home" class="relative mx-auto max-w-6xl px-4 pt-36 pb-16 sm:px-6 lg:pt-44">
-  <div class="grid items-center gap-14 lg:grid-cols-[1.25fr_1fr]">
-    <div>
-      <p class="glass-soft inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-text-2" data-reveal>
-        <span class="pulse-dot size-2 rounded-full bg-mint-400"></span>
-        {role.data.availability}
-      </p>
+<section id="home" class="relative isolate flex min-h-[92svh] items-center justify-center overflow-hidden px-4 pt-28 pb-20 sm:px-6">
+  <div class="hero-sky pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute top-1/2 left-1/2 h-[420px] w-[min(1100px,90vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-500/12 blur-[120px]"></div>
+    <canvas class="absolute inset-0 size-full" data-constellation></canvas>
+  </div>
 
-      <h1 class="mt-7 font-display text-[2.6rem] leading-[1.05] font-extrabold tracking-tight sm:text-6xl lg:text-[4.1rem]">
-        <span class="block">
-          {firstLine.map(({ word, delay }) => <><span class="word" style={`--delay:${delay}ms`}>{word}</span>{" "}</>)}
-        </span>
-        <span class="word text-gradient pb-1" style={`--delay:${secondLineDelay}ms`}>{lineTwo}</span>
-      </h1>
+  <div class="mx-auto max-w-4xl text-center">
+    <p class="glass-soft inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-text-2" data-reveal>
+      <span class="pulse-dot size-2 rounded-full bg-mint-400"></span>
+      {role.data.availability}
+    </p>
 
-      <p class="mt-7 max-w-xl text-base leading-relaxed text-text-2 sm:text-lg" data-reveal style="--delay:500ms">
-        {role.data.intro}
-      </p>
+    <h1 class="mt-8 font-display text-[2.7rem] leading-[1.04] font-extrabold tracking-tight sm:text-6xl lg:text-[5rem]">
+      <span class="block">
+        {firstLine.map(({ word, delay }) => <><span class="word" style={`--delay:${delay}ms`}>{word}</span>{" "}</>)}
+      </span>
+      <span class="word text-gradient pb-2" style={`--delay:${secondLineDelay}ms`}>{lineTwo}</span>
+    </h1>
 
-      <div class="mt-9 flex flex-wrap gap-3" data-reveal style="--delay:650ms">
-        <a href="#work" class="btn-primary">See my work <Icon name="arrow-down" /></a>
-        <a href="#live-demo" class="btn-ghost"><Icon name="play" class="text-mint-400" /> Try {spotlightTitle} live</a>
-      </div>
-    </div>
+    <p class="mx-auto mt-7 max-w-xl text-base text-text-2 sm:text-lg" data-reveal style="--delay:550ms">
+      {role.data.intro}
+    </p>
 
-    <div class="glass spotlight relative rounded-[28px] p-6 sm:p-7" data-reveal style="--delay:350ms" data-spotlight>
-      <div class="flex items-center justify-between">
-        <p class="text-xs font-semibold tracking-[0.18em] text-text-3 uppercase">How I work</p>
-        <span class="chip !py-0.5 !text-[11px]">BA lifecycle</span>
-      </div>
-      <ol class="relative mt-5 space-y-3">
-        <span class="pipeline-line absolute top-6 bottom-6 left-[19px] w-[2px]" aria-hidden="true"></span>
-        {
-          steps.map((step, i) => (
-            <li class="pipeline-step relative flex items-center gap-4 rounded-2xl border px-3 py-2.5" style={`--i:${i}`}>
-              <span class="relative z-10 grid size-[38px] flex-none place-items-center rounded-xl bg-ink-900 text-accent-300 ring-1 ring-white/10">
-                <Icon name={step.icon} class="size-[18px]" />
-              </span>
-              <span>
-                <span class="block text-sm font-semibold text-text-1">{step.title}</span>
-                <span class="block text-xs text-text-3">{step.text}</span>
-              </span>
-            </li>
-          ))
-        }
-      </ol>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3" data-reveal style="--delay:700ms">
+      <a href="#work" class="btn-primary !px-6 !py-3">See my work <Icon name="arrow-down" /></a>
+      <a href="#live-demo" class="btn-ghost !px-6 !py-3"><Icon name="play" class="text-mint-400" /> Try {spotlightTitle} live</a>
     </div>
   </div>
 
-  {
-    stats.length > 0 && (
-      <dl class="mt-16 grid grid-cols-2 gap-3 lg:grid-cols-4" data-reveal style="--delay:200ms">
-        {stats.map((stat) => (
-          <div class="glass-soft rounded-2xl px-5 py-4">
-            <dt class="text-xs leading-snug text-text-3">{stat.label}</dt>
-            <dd class="mt-1 font-display text-3xl font-bold text-text-1 tabular-nums sm:text-4xl" data-count={stat.value}>
-              {stat.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    )
-  }
+  <a href="#about" class="scroll-cue absolute bottom-8 left-1/2 -translate-x-1/2 text-text-3 transition hover:text-text-1" aria-label="Scroll to About">
+    <span class="block h-10 w-6 rounded-full border border-white/15">
+      <span class="scroll-cue-dot mx-auto mt-2 block size-1.5 rounded-full bg-accent-300"></span>
+    </span>
+  </a>
 </section>

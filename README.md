@@ -10,9 +10,9 @@ Every project is told the way a BA would present it: the business problem, my ro
 
 | Section | What it shows | Source |
 |---|---|---|
-| Hero | Headline, "how I work" pipeline, totals added up from the projects (requirements, use cases, BPMN, live products) | `roles.yaml` + project metrics |
-| About | Short story, monogram with orbiting skills, key facts | `roles.yaml`, `profile.yaml` |
-| Work | Featured project with the live app, then one card per project with its key workflow | `projects/*.md` |
+| Hero | Headline, one line, two buttons over a constellation that reacts to the mouse | `roles.yaml` |
+| About | Monogram with orbiting skills, three pillars, the BA process as steps, totals added up from the projects | `roles.yaml`, `profile.yaml`, project metrics |
+| Work | Featured project with the live app, then one card per project: keyword bullets, numbers, a Workflow tab and a Screens tab | `projects/*.md` |
 | Case studies | Full write-ups with sequence and state diagrams, BPMN, ERD and screenshots | Markdown body of a project |
 | Skills, Journey, Contact | Skill groups, timeline, e-mail with copy button and local time | `profile.yaml` |
 
@@ -31,6 +31,7 @@ flowchart LR
 
 - **Content is data** (decision D2). Changing a text, a number or the project order for a job application means editing YAML or Markdown, not components.
 - **One page per role** (decision D3). `roles.yaml` lists each role's path and its `featured` projects. A project has a `default` story and optional `angles.<role>` that override any field for that role. Today only the BA page (`/`) exists.
+- **Short by design.** Taglines, problems, roles and keyword bullets have length limits in the schema, so a card stays scannable.
 - **The build checks the data.** Schemas live in `src/content.config.ts`. A typo in a project id, an unknown icon or a wrong type stops the build with a clear message instead of silently hiding something.
 
 ```mermaid
@@ -73,6 +74,8 @@ thiens-portfolio/
 │   │   ├── diagrams.ts          # draws Mermaid on demand, full-screen view
 │   │   ├── panzoom.ts           # drag, pinch, Ctrl + wheel, keyboard zoom
 │   │   ├── live-demo.ts         # warm-up call, role tabs, scaled iframe
+│   │   ├── constellation.ts     # hero points and lines that react to the cursor
+│   │   ├── cursor.ts            # page grid lights up around the cursor
 │   │   └── motion.ts            # reveals, count-up, nav state, copy e-mail, clock
 │   └── styles/global.css        # theme tokens, glass, grain, diagram and prose styles
 └── docs/DECISIONS.md            # decision log from the planning interview

@@ -32,9 +32,8 @@ const workflow = view.story.workflow;
       <div class="mt-6">
         <ProjectHeader project={view} level="h2" />
       </div>
-      <p class="mt-6 text-base leading-relaxed text-text-2">{view.story.problem}</p>
       <div class="mt-8">
-        <StoryDetails project={{ ...view, hasCaseStudy: false }} compact />
+        <StoryDetails project={{ ...view, hasCaseStudy: false }} />
       </div>
     </header>
 

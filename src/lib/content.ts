@@ -48,6 +48,7 @@ export async function getRoles(): Promise<Role[]> {
 export async function getRoleView(roleId: string) {
   const role = await getEntry("roles", roleId);
   if (!role) throw new Error(`roles.yaml has no role "${roleId}"`);
+  for (const item of [...role.data.pillars, ...role.data.process]) assertIcon(item.icon, `roles.yaml (${roleId})`);
 
   const all = await getCollection("projects");
   const byId = new Map(all.map((project) => [project.id, project]));

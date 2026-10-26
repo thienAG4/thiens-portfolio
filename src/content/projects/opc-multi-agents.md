@@ -10,15 +10,16 @@ links:
     href: https://github.com/thienAG4/OPC-multi-agents-system
 default:
   category: Finance · Decision support
-  tagline: Three AI agents prepare a financing decision, and the founder makes it
-  problem: >-
-    A small company's founder weighing a new contract has to pull contracts, invoices and cashflow together
-    by hand, judge the risk and choose a bank product, usually without an analyst to help.
-  role: Team entry for MIS Talent 2026, team of 3.
+  tagline: "Three AI agents prepare a financing decision, the founder makes it"
+  problem: "Founders judge a new contract by hand: cashflow, risk and bank product, with no analyst to help."
+  role: "Team of 3, MIS Talent 2026"
   highlights:
-    - The decision is split into three hand-offs (data and finance, risk and compliance, decision and partner), each with a defined input and output.
-    - Rules live in a catalogue of 21 rules over 11 business entities, so every alert traces back to a rule.
-    - A person stays in the loop. The agents prepare a decision card; the founder approves, rejects or asks for more information.
+    - label: "3 hand-offs"
+      text: "data and finance, risk, decision"
+    - label: "Rule catalogue"
+      text: "21 rules over 11 business entities"
+    - label: "Human in the loop"
+      text: "founder approves, rejects or asks for more"
   metrics:
     - key: agents
       value: 3

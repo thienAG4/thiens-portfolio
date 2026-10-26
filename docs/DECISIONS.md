@@ -14,6 +14,8 @@ Decision log for the portfolio, filled in during the grill-me interview (one que
 | D8 | **Stack:** Astro 7 static site, Tailwind 4, Mermaid 12 loaded on demand, content collections for the data checks. Hosting on Vercel. English content. | Static pages load fast for recruiters; content collections give the schema checks D3 asks for; Vercel already hosts H4T. | 2026-10-26 |
 | D9 | **Honesty rules for content:** every number is counted from the project's own documents, every artifact chip links to a real file, unknown details are left out rather than guessed, and team projects credit the team. The H4T spec is labelled "SRS-style" because its title is Product Specification. | A BA interview will check the claims. | 2026-10-26 |
 | D10 | **Case study pages only for projects with real BA documents** (H4T Xpress, GreenDrop). The other projects show the card only. | A thin case study hurts more than no case study. | 2026-10-26 |
+| D11 | **Less text, more visuals** (feedback after the first release). Hero keeps only headline, one line and two buttons; the process and totals move to About. Project cards use a one-line problem, a role chip, 3-4 keyword bullets, big numbers and a Screens tab. Schema length limits enforce it. | The first version read as a wall of text and the opening felt crowded. | 2026-10-26 |
+| D12 | **Background reacts to the mouse**: a constellation of points behind the hero (points drift away from the cursor and link to it) and a page grid that lights up around the cursor. Paused off screen; mouse only; reduced motion respected. | Owner asked for the hover effect of the reference portfolio. | 2026-10-26 |
 
 ## Open items for the owner
 

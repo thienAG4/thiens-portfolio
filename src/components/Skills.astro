@@ -14,7 +14,6 @@ const { skills } = Astro.props;
   <SectionHeading
     eyebrow="Skills"
     title="What I bring to a project team"
-    lead="Analysis first, with enough technical depth to check what gets built against what was agreed."
     align="center"
   />
   <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -24,9 +23,8 @@ const { skills } = Astro.props;
           <span class="grid size-11 place-items-center rounded-2xl bg-accent-500/12 text-accent-300 ring-1 ring-accent-400/25">
             <Icon name={group.icon} class="size-5" />
           </span>
-          <h3 class="mt-5 font-display text-lg font-semibold">{group.title}</h3>
-          <p class="mt-1.5 text-sm leading-relaxed text-text-3">{group.blurb}</p>
-          <ul class="mt-5 flex flex-wrap gap-2">
+          <h3 class="mt-4 font-display text-lg font-semibold">{group.title}</h3>
+          <ul class="mt-4 flex flex-wrap gap-2">
             {group.items.map((item) => (
               <li class="chip">{item}</li>
             ))}

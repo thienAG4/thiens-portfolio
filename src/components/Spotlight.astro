@@ -18,10 +18,9 @@ const workflow = project.story.workflow;
     <span class="eyebrow">Featured project</span>
   </div>
   <ProjectHeader project={project} level="h3" />
-  <p class="mt-6 max-w-3xl text-[15px] leading-relaxed text-text-2">{project.story.problem}</p>
 
   <div class="mt-8 grid gap-10 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-    <StoryDetails project={project} compact />
+    <StoryDetails project={project} />
     <LiveDemo project={project} />
   </div>
 

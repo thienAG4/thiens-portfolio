@@ -124,7 +124,7 @@ function openFullScreen(figure: HTMLElement) {
     wheelZoom: true,
     preferFit: figure.dataset.kind === "image",
   });
-  requestAnimationFrame(() => panZoom.reset());
+  void imageReady(copy).then(() => requestAnimationFrame(() => panZoom.reset()));
   bindTools(copy, panZoom, undefined, () => dialog.close());
   copy.querySelector<HTMLElement>(".diagram-viewport")!.focus();
 }
@@ -139,9 +139,36 @@ async function setUp(figure: HTMLElement) {
   bindTools(figure, panZoom, () => openFullScreen(figure));
 }
 
+// Project cards: switch between the workflow diagram and the screenshots.
+function initMediaTabs() {
+  document.querySelectorAll<HTMLElement>("[data-media]").forEach((media) => {
+    const tabs = media.querySelectorAll<HTMLButtonElement>("[data-media-tab]");
+    tabs.forEach((tab) =>
+      tab.addEventListener("click", () => {
+        tabs.forEach((other) => other.setAttribute("aria-selected", String(other === tab)));
+        media.querySelectorAll<HTMLElement>("[data-media-pane]").forEach((pane) => {
+          pane.hidden = pane.dataset.mediaPane !== tab.dataset.mediaTab;
+        });
+      }),
+    );
+  });
+}
+
+// Screenshot thumbnails open their <template> diagram frame in the full-screen viewer.
+function initLightbox() {
+  document.querySelectorAll<HTMLButtonElement>("[data-lightbox]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const template = document.getElementById(button.dataset.lightbox!) as HTMLTemplateElement | null;
+      const figure = template?.content.querySelector<HTMLElement>("[data-diagram]");
+      if (figure) openFullScreen(figure);
+    });
+  });
+}
+
 function init() {
+  initMediaTabs();
+  initLightbox();
   const figures = document.querySelectorAll<HTMLElement>("[data-diagram]");
-  if (figures.length === 0) return;
 
   const observer = new IntersectionObserver(
     (entries) => {

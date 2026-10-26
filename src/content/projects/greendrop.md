@@ -6,6 +6,15 @@ team: 5
 status: completed
 stack: [AngularJS, Node.js, Express, MySQL, Docker, Postman]
 cover: /images/greendrop/ai-terrarium-builder.webp
+screens:
+  - src: /images/greendrop/ai-terrarium-builder.webp
+    title: "Combo Builder with AI preview"
+  - src: /images/greendrop/product-catalog.webp
+    title: "Product catalogue"
+  - src: /images/greendrop/cart-checkout.webp
+    title: "Cart and checkout"
+  - src: /images/greendrop/admin-dashboard.webp
+    title: "Admin dashboard"
 links:
   - label: Source code
     href: https://github.com/thienAG4/GreenDrop
@@ -13,17 +22,18 @@ links:
     href: https://github.com/thienAG4/GreenDrop/blob/main/docs/GreenDrop_Project_Report_VI.pdf
 default:
   category: E-commerce · After-sales processes
-  tagline: Terrarium shop with an AI preview builder and a complete after-sales flow
-  problem: >-
-    Terrarium shops in Vietnam mostly sell fixed designs. Customers who want a custom one go back and forth
-    in chat, cannot see the result before paying, and have little visibility over orders, cancellations or returns.
-  role: >-
-    Business Analysis Lead in a team of 5: requirements, BPMN, DFD, use case specifications, ERD review and
-    manual end-to-end testing.
+  tagline: "Terrarium shop with an AI preview builder and full after-sales flow"
+  problem: "Custom terrariums meant long chats, no preview before paying, and no visibility after checkout."
+  role: "Business Analysis Lead, team of 5"
   highlights:
-    - "Wrote the rules that make after-sales predictable: when an order can be cancelled, return deadlines with photo evidence, and a review flag for accounts with more than 3 returns in 180 days."
-    - Modelled 7 BPMN processes with swimlanes, business rules and exception paths, plus a context and level-0 DFD.
-    - Traced the requirements to a 24-entity data model and 89 API endpoints, then tested the flows end to end.
+    - label: "Business rules"
+      text: "cancel window, return deadlines, photo evidence"
+    - label: "7 BPMN"
+      text: "swimlanes, rules and exception paths"
+    - label: "Data model"
+      text: "24 entities built as 24 MySQL tables"
+    - label: "E2E testing"
+      text: "flows checked against the requirements"
   metrics:
     - key: br
       value: 16
@@ -85,7 +95,9 @@ angles: {}
 
 ## Context
 
-GreenDrop is an online shop for terrariums and mini plants, built by a team of five in the Business Web Development course at UEL. I was the Business Analysis Lead. The requirements and diagrams were agreed before development and then traced to the database and the API, so the build could be checked against them.
+- **The product:** online shop for terrariums and mini plants.
+- **The team:** 5 people, Business Web Development (UEL). I was the BA Lead.
+- **The method:** requirements and diagrams agreed first, then traced to the database and the API.
 
 ## The problem
 
@@ -93,13 +105,15 @@ GreenDrop is an online shop for terrariums and mini plants, built by a team of f
 - Customers **cannot see the result** before paying.
 - After checkout there is **little visibility**: cancellations, returns and refunds are handled case by case.
 
-## The solution in one paragraph
+## The solution
 
-A **Custom Combo Builder** where the customer picks a container, substrate, plants and decorations and gets an AI image preview of the finished terrarium. Around it, a complete after-sales flow (tracking, cancellation with automatic refund, returns with photo evidence, verified reviews) and a separate admin portal.
+- **Custom Combo Builder:** pick container, substrate, plants, decorations, then see an **AI preview**.
+- **After-sales:** tracking, cancellation with auto refund, returns with photos, verified reviews.
+- **Admin portal:** products, orders, returns, promotions, revenue dashboard.
 
 ## Actors
 
-Three roles use the system (guest, customer, admin), and three external systems sit around it (payment gateway, shipping provider, e-mail and SMS).
+**3 roles** (guest, customer, admin) and **3 external systems** (payment, shipping, e-mail/SMS).
 
 ```diagram src="/images/greendrop/use-case-overview.webp" title="Use case overview" height=520
 Actors and use cases. Seven of them have full specifications in the report.
@@ -125,7 +139,7 @@ Actors and use cases. Seven of them have full specifications in the report.
 
 ## Processes
 
-Seven BPMN processes, each with swimlanes for the customer, the website and the admin. The return and refund process is the most involved, with two sub-processes: checking eligibility and handling the refund.
+**7 BPMN processes**, each with customer / website / admin swimlanes. Return and refund is the most involved.
 
 ```diagram src="/images/greendrop/bpmn-4-return-and-refund.webp" title="BPMN 4 · return and refund" height=560
 Swimlanes for customer, website and admin; sub-processes for eligibility and refund on the right.
@@ -156,7 +170,9 @@ Implemented as 24 MySQL tables with 34 foreign keys.
 
 ## Built and tested
 
-The team built the storefront and admin portal in AngularJS with a Node.js and Express API (89 endpoints in 10 modules) on MySQL, all running with Docker Compose. I tested the flows end to end against the requirements, and the API comes with a [Postman collection](https://github.com/thienAG4/GreenDrop/blob/main/docs/postman/GreenDrop.postman_collection.json) where every request has smoke tests.
+- **Stack:** AngularJS storefront and admin, Node.js / Express API (**89 endpoints**), MySQL, Docker Compose.
+- **My testing:** flows checked end to end against the requirements.
+- **API checks:** [Postman collection](https://github.com/thienAG4/GreenDrop/blob/main/docs/postman/GreenDrop.postman_collection.json) with smoke tests on every request.
 
 ```diagram src="/images/greendrop/ai-terrarium-builder.webp" title="Custom Combo Builder with AI preview" height=480
 ```

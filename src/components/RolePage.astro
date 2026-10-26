@@ -18,14 +18,14 @@ const { role, profile, spotlight, others, skills, stats } = await getRoleView(As
 ---
 
 <Base title={`${profile.name} · ${role.data.title}`} description={role.data.seoDescription} profile={profile}>
-  <Hero role={role} stats={stats} spotlightTitle={spotlight.data.title} />
-  <About role={role} profile={profile} />
+  <Hero role={role} spotlightTitle={spotlight.data.title} />
+  <About role={role} profile={profile} stats={stats} />
 
   <section id="work" class="mx-auto max-w-6xl px-4 py-24 sm:px-6">
     <SectionHeading
       eyebrow="Work"
-      title="Projects, told from the analysis side"
-      lead="Each one starts with the business problem and the process, then shows the documents that came out of it and the product built from them. Diagrams zoom: drag, pinch or open them full screen."
+      title="Projects, from the analysis side"
+      lead="Problem, process, documents, product. Diagrams zoom: drag, pinch or open full screen."
     />
     <div class="mt-14 space-y-8">
       <Spotlight project={spotlight} />

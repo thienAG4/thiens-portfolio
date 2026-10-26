@@ -44,18 +44,18 @@ liveDemo:
       poster: /images/h4t-xpress/admin-settings.webp
 default:
   category: Logistics · Incident management
-  tagline: Last-mile delivery incident handling, from BPMN to a live product
-  problem: >-
-    When a parcel runs into trouble on the road (traffic, weather, a breakdown, a sick driver), drivers have no
-    standard way to report it, hub managers spend 15 to 20 minutes on the phone looking for a replacement, and
-    customers never hear the new ETA or the reason for the delay.
-  role: >-
-    Group leader for the analysis in a team of 5, then turned our specification into the deployed product.
+  tagline: "Last-mile incident handling, from BPMN to a live product"
+  problem: "Drivers had no standard way to report incidents; hubs spent 15-20 min on the phone finding a replacement."
+  role: "Group leader (analysis), team of 5, then built it"
   highlights:
-    - Modelled the to-be incident process and split incidents into objective and subjective, each with its own resolution path.
-    - "Specified the dispatch rules: 8 eligibility filters, a weighted score (distance 40%, load 25%, history 20%, time fit 15%) and one offer at a time."
-    - Kept a traceability matrix from every functional requirement to its API module, screen and automated test.
-    - Logged 35 changes to the spec during the build, each with its reason, so the document never drifted from the code.
+    - label: "To-be process"
+      text: "objective vs subjective incidents, 2 resolution paths"
+    - label: "Dispatch rules"
+      text: "8 filters + weighted score 40/25/20/15"
+    - label: "Traceability"
+      text: "every FR linked to API, screen and test"
+    - label: "Change log"
+      text: "35 spec changes, each with its reason"
   metrics:
     - key: fr
       value: 29
@@ -111,11 +111,11 @@ angles: {}
 
 ## Context
 
-H4T Xpress is a last-mile delivery company in our course case. Parcels arrive at a hub, drivers take them out, and an e-commerce partner (in the demo, a simulated shop called ShopNow) keeps its customers informed. The analysis was a five-person group project in the Information Systems Analysis and Design course at UEL. I led the group. After the course I turned our specification into a working product to test whether the requirements held up when someone actually had to build them.
+- **The company:** last-mile delivery. Parcels arrive at a hub, drivers take them out, an e-commerce partner informs its customers.
+- **The project:** 5-person analysis in Systems Analysis and Design (UEL). I led the group.
+- **After the course:** I built the spec into a working product to see if the requirements held up.
 
 ## The problem (as-is)
-
-The group's survey kept pointing to the same moment: a delivery goes wrong on the road.
 
 - The driver has **no standard channel** to report it. They call the hub, and the call is the only record.
 - The hub manager spends **15 to 20 minutes on the phone** finding a replacement driver.
@@ -131,11 +131,11 @@ The group's survey kept pointing to the same moment: a delivery goes wrong on th
 | System admin | Admin console | Accounts, permissions and settings, no operations |
 | Partner and customer | Partner's own site | Status, ETA and delay reasons sent by webhook |
 
-Customers have no account in H4T. Following the scope in our report, they hear from H4T indirectly, through the partner they bought from.
+Customers have **no account** in H4T: per our report's scope, updates reach them through the partner.
 
 ## To-be: incident handling
 
-The hub manager must classify, reply and choose a solution in that order. The system blocks a step that is skipped, with the exact messages from our report.
+**Classify → reply → choose a solution**, in that order. A skipped step is blocked with the exact message from our report.
 
 ```mermaid title="Incident handling · sequence" height=520
 sequenceDiagram
@@ -161,11 +161,11 @@ sequenceDiagram
     API->>P: Webhook: new ETA
 ```
 
-The system also opens incidents on its own (business rule BR12): when a driver's ETA slips three times in a row, or when a driver on delivery has barely moved for a set time.
+**Auto-detected incidents (BR12):** ETA slips 3 times in a row, or a driver on delivery barely moves.
 
 ## Order lifecycle
 
-Every status change is checked against this state machine (BR3). An illegal jump is rejected, and each change writes an event with who, when and where.
+**BR3:** only these transitions are allowed. Every change logs who, when and where.
 
 ```mermaid title="Order state machine" height=560
 stateDiagram-v2
@@ -191,11 +191,11 @@ stateDiagram-v2
 
 ## Dispatch rules
 
-Finding the right replacement is the step that used to take 20 minutes, so it got the most precise rules.
+Finding a replacement used to take 20 minutes, so it got the most precise rules.
 
-**Eligible drivers (BR4)** must pass all eight filters: an active driver account, a shift covering the delivery window, "ready for orders" switched on, a location sent in the last 10 minutes, the same hub area, fewer active orders than the limit, no other pending offer, and no earlier refusal of this order in the current round.
-
-**Ranking (BR5)** uses a score from 0 to 100. The weights live in system settings, so the business can tune them without a release.
+- **Eligible (BR4):** 8 filters: active account, shift today, online, fresh GPS, same hub, under the order limit, no pending offer, no earlier refusal.
+- **Ranked (BR5):** score 0-100, weights tunable in settings without a release.
+- **Offered (BR6-BR8):** one driver at a time, timeout = refusal, 3 empty rounds → on hold + alert.
 
 | Criterion | Measure | Weight |
 |---|---|:-:|
@@ -203,8 +203,6 @@ Finding the right replacement is the step that used to take 20 minutes, so it go
 | Current load | Active orders against the driver's limit | 25% |
 | History | 70% on-time rate plus 30% incident-free rate over 30 days | 20% |
 | Time fit | Whether the rest of the shift covers the delivery | 15% |
-
-**Offers (BR6 to BR8)** go to one driver at a time, best score first, with a timeout. A timeout counts as a refusal. After three empty rounds the order goes on hold and the hub gets a high-priority alert.
 
 ## Requirements at a glance
 
@@ -222,7 +220,7 @@ Use cases with full specifications: UC-01 register for a shift, UC-02 follow del
 
 ## From requirement to test
 
-The [traceability matrix](https://github.com/thienAG4/h4t-xpress/blob/main/docs/traceability.md) links each requirement to the code and the tests that prove it. An excerpt:
+Excerpt of the [traceability matrix](https://github.com/thienAG4/h4t-xpress/blob/main/docs/traceability.md) (requirement → code → test):
 
 | Requirement | Screen | Automated check |
 |---|---|---|
@@ -233,13 +231,12 @@ The [traceability matrix](https://github.com/thienAG4/h4t-xpress/blob/main/docs/
 
 ## When the spec met the code
 
-Building it showed where the document was vague. Instead of quietly changing behaviour, every change went back into the spec as a numbered decision with its reason: 14 in the second phase and 21 in the third. Three examples:
+Building it showed where the spec was vague. **35 changes** went back into the spec, each numbered with its reason. Three examples:
 
-- **A state the report missed.** A driver can scan a parcel at the hub and hit a problem before leaving. The state machine had no way back from `PICKED_UP`, so a transition was added for that case only.
-- **Hub priority over automation.** With many orders waiting, an online driver almost always had an automatic offer pending, so the hub could never pick anyone. Manual offers now take priority and withdraw the automatic one.
-- **No driver at night.** "No driver available" originally counted as a failed round and pushed orders on hold overnight. It now waits and retries without using up a round.
-
-I was also honest about the limits: the 99% uptime requirement is marked as **not met** on free hosting.
+- **Missing state:** a problem right after the hub scan had no way back from `PICKED_UP`. Added one transition.
+- **Hub before automation:** auto offers blocked manual picks. Manual offers now take priority.
+- **No driver at night:** no longer burns a dispatch round; orders wait instead of going on hold.
+- **Honest limits:** the 99% uptime NFR is marked **not met** on free hosting.
 
 ## Screens
 
